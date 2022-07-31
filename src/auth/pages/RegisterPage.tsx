@@ -1,6 +1,13 @@
-import { Button, Grid, Link, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import {
+  Alert,
+  Button,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "../../hooks";
 import { AppDispatch } from "../../store";
@@ -32,6 +39,12 @@ export const RegisterPage = () => {
   const dispatch: AppDispatch = useDispatch();
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  const { status, errorMessage } = useSelector((state: any) => state.auth);
+  const isCheckingAuthentication = useMemo(
+    () => status === "checking",
+    [status]
+  ); //No quiero que esto se recalcule mientras estoy cambiando los valores del formulario.
+
   const {
     formState,
     //@ts-ignore
@@ -59,7 +72,10 @@ export const RegisterPage = () => {
 
   return (
     <AuthLayout title="Crear cuenta">
-      <form onSubmit={onSubmit}>
+      <form
+        onSubmit={onSubmit}
+        className="animate__animated animate__fadeIn animate__faster"
+      >
         <Grid item xs={12} sx={{ mt: 2 }}>
           <TextField
             label="Nombre completo"
@@ -100,8 +116,16 @@ export const RegisterPage = () => {
           ></TextField>
         </Grid>
         <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
+          <Grid item xs={12} display={!!errorMessage ? "" : "none"}>
+            <Alert severity="error">{errorMessage}</Alert>
+          </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" fullWidth type="submit">
+            <Button
+              disabled={isCheckingAuthentication}
+              variant="contained"
+              fullWidth
+              type="submit"
+            >
               Crear cuenta
             </Button>
           </Grid>
