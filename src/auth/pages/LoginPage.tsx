@@ -19,14 +19,16 @@ import {
 } from "../../store/auth";
 import { AuthLayout } from "../layout/AuthLayout";
 
+const formData = {
+  email: "",
+  password: "",
+};
+
 export const LoginPage = () => {
   const dispatch: AppDispatch = useDispatch();
   const { status, errorMessage } = useSelector(authState);
   //@ts-ignore
-  const { email, password, onInputChange } = useForm({
-    email: "",
-    password: "",
-  });
+  const { email, password, onInputChange } = useForm(formData);
 
   const isAuthenticating = useMemo(() => status === "checking", [status]);
 
@@ -36,7 +38,6 @@ export const LoginPage = () => {
   };
 
   const onGoogleSignIn = () => {
-    console.log("onGoogleSignIn");
     dispatch(startGoogleSignIn(email, password));
   };
 

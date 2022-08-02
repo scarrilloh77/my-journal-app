@@ -20,8 +20,6 @@ export const signInWithGoogle = async () => {
       photoURL,
       uid,
     };
-    // const credentials = GoogleAuthProvider.credentialFromResult(result);
-    // console.log(credentials);
   } catch (error) {
     console.log(error);
     //@ts-ignore

@@ -2,7 +2,7 @@ import { Grid, Typography } from "@mui/material";
 import React from "react";
 
 interface IAuthLayout {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   title: string;
 }
 

@@ -3,7 +3,7 @@ import React from "react";
 import { NavBar, SideBar } from "../components";
 
 interface IJournalLayout {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const drawerWidth = 300;

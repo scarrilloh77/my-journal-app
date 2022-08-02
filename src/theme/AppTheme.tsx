@@ -3,7 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { purpleTheme } from ".";
 
 interface IAppTheme {
-  children: any;
+  children?: any;
 }
 
 export const AppTheme = ({ children }: IAppTheme) => {
